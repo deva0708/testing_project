@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Box</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Box</h1>
+    <input type="text" id="searchBox" placeholder="Search...">
+    <button onclick="search()">Search</button>
+    <ul id="resultList"></ul>
+
+    <script>
+        // Array of 20 strings
+        const strings = [
+            "Perseverance goes a long way",
+             "Obstacles are inevitable, but quitting isn’t",
+              "It’s all about daily, consistent action", 
+              "Sometimes, you have to make sacrifices to succeed", 
+              "The biggest risk is not taking any risk… In a world that’s changing really quickly, the only strategy that is guaranteed to fail is not taking risks.",
+            "A great reminder to not get too caught up in the pursuit of success",
+             "Only listen to those who are already where you want to be", 
+             " Don’t let it keep you down for long",
+              "Always remember that you are absolutely unique. Just like everyone else.",
+               "Tell me and I forget. Teach me and I remember. Involve me, and I learn.",
+            "The best and most beautiful things in the world cannot be seen or even touched – they must be felt with the heart", 
+            "Opportunity does not happen, You need to create them.",
+             "I have not failed. I’ve just found 10,000 ways that won’t work.", 
+             "The perfect time to begin is now", 
+             "Because it always seems impossible until it’s done",
+            "There’s no deadline for success",
+             "They’re not always the same thing", 
+             "Failure will never overtake me if my determination to succeed is strong enough.", 
+             "You must be the change you wish to see in the world.” ",
+              "Your mindset is everything"
+        ];
+
+        // filter and display results
+        function search() {
+            const query = document.getElementById('searchBox').value.toLowerCase();
+            const resultList = document.getElementById('resultList');
+            resultList.innerHTML = '';
+
+            const filteredStrings = strings.filter(str => str.toLowerCase().includes(query));
+
+            filteredStrings.forEach(str => {
+                const li = document.createElement('li');
+                li.textContent = str;
+                resultList.appendChild(li);
+            });
+        }
+
+        //onChange event
+        document.getElementById('searchBox').addEventListener('input', search);
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+.exp {
+    text-align: center;
+  }
+  
+  .exp-header {
+    background-color: hsl(120, 5%, 8%);
+    padding: 20px;
+    color: white;
+    min-height: 3vh;
+  }
+  
+  .exp-nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .exp-nav ul li {
+    display: inline;
+    margin-right: 10px;
+  }
+  
+  .exp-nav a {
+    color: hsl(180, 4%, 5%);
+    text-decoration: none;
+  }
+  
+  .exp-main {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .exp-article {
+    flex: 2;
+    padding: 20px;
+  }
+  
+  .yellow-box {
+    background-color:goldenrod;
+    margin: 10px 0;
+    padding: 20px;
+  }
+  
+  .exp-aside {
+    flex: 1;
+    background-color: #f1f1f1;
+    padding: 20px;
+    margin-left: 20px;
+  }
+  
+  .exp-footer {
+    background-color: #282c34;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  }

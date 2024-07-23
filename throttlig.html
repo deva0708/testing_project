@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Event with Throttling and Debouncing</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .count-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border: 1px solid black;
+        }
+        .paragraphs {
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body onscroll="showCount()">
+    <div class="count-display">
+        <div>Normal Count: <span id="normalCount">0</span></div>
+        <div>Throttle Count: <span id="throttleCount">0</span></div>
+        <div>Debounce Count: <span id="debounceCount">0</span></div>
+    </div>
+    <div class="paragraphs" id="content">
+    </div>
+
+    <script>
+        function createParagraphs() {
+            const content = document.getElementById('content');
+            for (let i = 0; i < 100; i++) {
+                const paragraph = document.createElement('p');
+                paragraph.textContent = `This is trottleing debouncing ${i + 1}`;
+                content.appendChild(paragraph);
+            }
+        }
+
+        createParagraphs();
+
+        let normalCount = 0;
+        let throttleCount = 0;
+        let debounceCount = 0;
+
+        // Throttling function
+        function throttle(func, limit) {
+            let lastFunc;
+            let lastRan;
+            return function() {
+                const context = this;
+                const args = arguments;
+                if (!lastRan) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                } else {
+                    clearTimeout(lastFunc);
+                    lastFunc = setTimeout(function() {
+                        if ((Date.now() - lastRan) >= limit) {
+                            func.apply(context, args);
+                            lastRan = Date.now();
+                        }
+                    }, limit - (Date.now() - lastRan));
+                }
+            }
+        }
+
+        // Debouncing function
+        function debounce(func, delay) {
+            let debounceTimer;
+            return function() {
+                const context = this;
+                const args = arguments;
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => func.apply(context, args), delay);
+            }
+        }
+
+        // Show count function
+        function showCount() {
+            document.getElementById('normalCount').innerText = ++normalCount;
+            throttledShowCount();
+            debouncedShowCount();
+        }
+
+        // Throttled and debounced versions of showCount
+        const throttledShowCount = throttle(function() {
+            document.getElementById('throttleCount').innerText = ++throttleCount;
+        }, 200);
+
+        const debouncedShowCount = debounce(function() {
+            document.getElementById('debounceCount').innerText = ++debounceCount;
+        }, 200);
+    </script>
+</body>
+</html>
